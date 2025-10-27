@@ -8,6 +8,7 @@ import { Location } from '../types';
 import apiService from '../services/api';
 
 const Register: React.FC = () => {
+  const navigate = useNavigate();
   const { register, isLoading, error, clearError } = useAuth();
   const { showSuccess, showError } = useNotification();
   const [locations, setLocations] = useState<Location[]>([]);
