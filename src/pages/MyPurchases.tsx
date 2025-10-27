@@ -20,7 +20,6 @@ import {
   CalendarToday,
   Person,
 } from '@mui/icons-material';
-import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
 import apiService from '../services/api';
 import { Transaction, TransactionStatus } from '../types';

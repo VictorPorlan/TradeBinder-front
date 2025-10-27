@@ -32,7 +32,7 @@ const Catalog: React.FC = () => {
   const [selectedListing, setSelectedListing] = useState<Listing | null>(null);
   
   // Función para crear filtros iniciales desde URL
-  const createInitialFilters = (): SearchListingsParams => {
+  const createInitialFilters = React.useCallback((): SearchListingsParams => {
     const cardName = searchParams.get('cardName');
     const location = searchParams.get('location');
     const minPrice = searchParams.get('minPrice');
@@ -61,7 +61,7 @@ const Catalog: React.FC = () => {
     if (sortOrder) initialFilters.sortOrder = sortOrder as 'ASC' | 'DESC';
 
     return initialFilters;
-  };
+  }, [searchParams]);
 
   const [filters, setFilters] = useState<SearchListingsParams>(createInitialFilters());
 
@@ -70,7 +70,7 @@ const Catalog: React.FC = () => {
     const newFilters = createInitialFilters();
     setFilters(newFilters);
     setPage(1); // Reset page when URL params change
-  }, [searchParams, createInitialFilters]);
+  }, [createInitialFilters]);
 
   const loadListings = React.useCallback(async () => {
     setIsLoading(true);
