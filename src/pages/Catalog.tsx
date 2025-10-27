@@ -65,13 +65,6 @@ const Catalog: React.FC = () => {
 
   const [filters, setFilters] = useState<SearchListingsParams>(createInitialFilters());
 
-  // Actualizar filtros cuando cambien los parámetros de URL
-  useEffect(() => {
-    const newFilters = createInitialFilters();
-    setFilters(newFilters);
-    setPage(1); // Reset page when URL params change
-  }, [createInitialFilters]);
-
   const loadListings = React.useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -93,17 +86,12 @@ const Catalog: React.FC = () => {
     }
   }, [page, filters]);
 
-  // Cargar listas cuando cambien los filtros o la página
-  useEffect(() => {
-    loadListings();
-  }, [loadListings]);
-
   // Inicializar filtros desde URL params
   useEffect(() => {
     const newFilters = createInitialFilters();
     setFilters(newFilters);
     setPage(1); // Reset page when URL params change
-  }, [searchParams]);
+  }, [createInitialFilters]);
 
   // Cargar listas cuando cambien los filtros o la página
   useEffect(() => {
