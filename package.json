@@ -17,6 +17,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "axios": "^1.12.2",
+    "express": "^4.18.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.3",
@@ -28,6 +29,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "serve": "node server.js",
+    "deploy": "npm run build && npm run serve",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
