@@ -16,7 +16,8 @@ const Register: React.FC = () => {
   // Limpiar errores cuando el componente se monta
   useEffect(() => {
     clearError();
-  }, [clearError]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const fetchLocations = async () => {

@@ -11,7 +11,8 @@ const Login: React.FC = () => {
   // Limpiar errores cuando el componente se monta
   useEffect(() => {
     clearError();
-  }, [clearError]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleLogin = async (data: Record<string, string>) => {
     try {
