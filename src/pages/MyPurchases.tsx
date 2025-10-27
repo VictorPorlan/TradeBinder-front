@@ -26,17 +26,12 @@ import apiService from '../services/api';
 import { Transaction, TransactionStatus } from '../types';
 
 const MyPurchases: React.FC = () => {
-  const { user } = useAuth();
   const { showError } = useNotification();
   const [purchases, setPurchases] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadPurchases();
-  }, []);
-
-  const loadPurchases = async () => {
+  const loadPurchases = React.useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -63,7 +58,11 @@ const MyPurchases: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showError]);
+
+  useEffect(() => {
+    loadPurchases();
+  }, [loadPurchases]);
 
   const formatPrice = (price: number | string): string => {
     const numericPrice = typeof price === 'string' ? parseFloat(price) : price;

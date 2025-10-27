@@ -45,15 +45,7 @@ const EditListing: React.FC = () => {
     images: [] as string[],
   });
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-    } else if (id) {
-      loadListing();
-    }
-  }, [isAuthenticated, navigate, id]);
-
-  const loadListing = async () => {
+  const loadListing = React.useCallback(async () => {
     if (!id) return;
     
     setIsLoading(true);
@@ -82,7 +74,15 @@ const EditListing: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    } else if (id) {
+      loadListing();
+    }
+  }, [isAuthenticated, navigate, id, loadListing]);
 
   // Auto-disable foil if edition doesn't support it
   useEffect(() => {

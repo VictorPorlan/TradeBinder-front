@@ -21,7 +21,6 @@ import {
   Share as ShareIcon,
   ShoppingCart,
   LocationOn,
-  Euro,
   Person,
   CalendarToday,
 } from '@mui/icons-material';

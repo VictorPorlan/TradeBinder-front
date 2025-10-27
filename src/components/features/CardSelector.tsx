@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Typography,
@@ -8,7 +8,6 @@ import {
   Card,
   CardContent,
   CardMedia,
-  CardActions,
   Chip,
   CircularProgress,
   Alert,
@@ -42,29 +41,7 @@ const CardSelector: React.FC<CardSelectorProps> = ({ onCardSelect, onBack }) => 
 
   const limit = 12;
 
-  useEffect(() => {
-    loadEditions();
-    loadCards();
-  }, []);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (searchTerm.length >= 2 || searchTerm === '') {
-        loadCards();
-      }
-    }, 500);
-
-    return () => clearTimeout(timeoutId);
-  }, [searchTerm, page]);
-
-  // Auto-select first edition when editions are loaded and a card is selected
-  useEffect(() => {
-    if (editions.length > 0 && selectedCard && !selectedEdition) {
-      setSelectedEdition(editions[0]);
-    }
-  }, [editions, selectedCard, selectedEdition]);
-
-  const loadEditions = async () => {
+  const loadEditions = useCallback(async () => {
     try {
       const editionsData = await apiService.getEditions();
       setEditions(editionsData);
@@ -73,9 +50,9 @@ const CardSelector: React.FC<CardSelectorProps> = ({ onCardSelect, onBack }) => 
       setError('Error al cargar las ediciones. Por favor, recarga la página.');
       setEditions([]);
     }
-  };
+  }, []);
 
-  const loadCards = async () => {
+  const loadCards = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
@@ -98,7 +75,30 @@ const CardSelector: React.FC<CardSelectorProps> = ({ onCardSelect, onBack }) => 
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [page, searchTerm]);
+
+  useEffect(() => {
+    loadEditions();
+    loadCards();
+  }, [loadEditions, loadCards]);
+
+  // Auto-select first edition when editions are loaded and a card is selected
+  useEffect(() => {
+    if (editions.length > 0 && selectedCard && !selectedEdition) {
+      setSelectedEdition(editions[0]);
+    }
+  }, [editions, selectedCard, selectedEdition]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (searchTerm.length >= 2 || searchTerm === '') {
+        loadCards();
+      }
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchTerm, page, loadCards]);
+
 
   const handleCardClick = (card: CardBase) => {
     setSelectedCard(card);

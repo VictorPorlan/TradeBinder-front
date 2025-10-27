@@ -8,11 +8,9 @@ import { Location } from '../types';
 import apiService from '../services/api';
 
 const Register: React.FC = () => {
-  const navigate = useNavigate();
-  const { register, isLoading, error, clearError, isAuthenticated } = useAuth();
+  const { register, isLoading, error, clearError } = useAuth();
   const { showSuccess, showError } = useNotification();
   const [locations, setLocations] = useState<Location[]>([]);
-  const [loadingLocations, setLoadingLocations] = useState(true);
 
   // Limpiar errores cuando el componente se monta
   useEffect(() => {
@@ -27,8 +25,6 @@ const Register: React.FC = () => {
       } catch (error) {
         console.error('Error fetching locations:', error);
         showError('Error al cargar las ubicaciones disponibles');
-      } finally {
-        setLoadingLocations(false);
       }
     };
 

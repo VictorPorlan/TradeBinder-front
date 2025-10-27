@@ -7,9 +7,7 @@ import {
   Stepper,
   Step,
   StepLabel,
-  Button,
   Alert,
-  CircularProgress,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -17,7 +15,7 @@ import { useNotification } from '../context/NotificationContext';
 import CardSelector from '../components/features/CardSelector';
 import ListingForm from '../components/features/ListingForm';
 import ListingPreview from '../components/features/ListingPreview';
-import { CardBase, Edition, ListingCondition, Listing } from '../types';
+import { CardBase, Edition, ListingCondition } from '../types';
 import apiService from '../services/api';
 
 const steps = ['Seleccionar Carta', 'Configurar Listing', 'Revisar y Publicar'];

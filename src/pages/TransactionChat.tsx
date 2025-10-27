@@ -43,16 +43,6 @@ const TransactionChat: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (transactionId) {
-      loadTransactionAndMessages();
-    }
-  }, [transactionId]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   const formatPrice = (price: number | string): string => {
     const numericPrice = typeof price === 'string' ? parseFloat(price) : price;
     return `€${numericPrice.toFixed(2)}`;
@@ -62,7 +52,7 @@ const TransactionChat: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const loadTransactionAndMessages = async () => {
+  const loadTransactionAndMessages = React.useCallback(async () => {
     if (!transactionId) return;
 
     setIsLoading(true);
@@ -83,7 +73,17 @@ const TransactionChat: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [transactionId]);
+
+  useEffect(() => {
+    if (transactionId) {
+      loadTransactionAndMessages();
+    }
+  }, [transactionId, loadTransactionAndMessages]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim() || !transaction || !user) return;

@@ -8,7 +8,6 @@ import {
   Chip,
   Button,
   CardActions,
-  Tooltip,
 } from '@mui/material';
 import {
   Visibility as ViewIcon,

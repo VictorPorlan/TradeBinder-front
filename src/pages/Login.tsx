@@ -6,8 +6,7 @@ import { useNotification } from '../context/NotificationContext';
 import AuthForm from '../components/common/AuthForm';
 
 const Login: React.FC = () => {
-  const navigate = useNavigate();
-  const { login, isLoading, error, clearError, isAuthenticated } = useAuth();
+  const { login, isLoading, error, clearError } = useAuth();
   const { showSuccess, showError } = useNotification();
 
   // Limpiar errores cuando el componente se monta

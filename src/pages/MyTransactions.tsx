@@ -16,15 +16,12 @@ import {
   Tab,
   Paper,
   Divider,
-  IconButton,
-  Tooltip,
 } from '@mui/material';
 import {
   ShoppingCart,
   Store,
   CheckCircle,
   Cancel,
-  LocalShipping,
   Euro,
   Person,
   CalendarToday,
@@ -63,11 +60,8 @@ const MyTransactions: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(0);
 
-  useEffect(() => {
-    loadTransactions();
-  }, [activeTab]);
 
-  const loadTransactions = async () => {
+  const loadTransactions = React.useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
@@ -96,7 +90,11 @@ const MyTransactions: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [activeTab]);
+
+  useEffect(() => {
+    loadTransactions();
+  }, [loadTransactions]);
 
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);

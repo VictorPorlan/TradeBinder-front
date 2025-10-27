@@ -50,12 +50,7 @@ const CardSearch: React.FC = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Load cards on component mount and when search params change
-  useEffect(() => {
-    loadCards();
-  }, [searchParams]);
-
-  const loadCards = async () => {
+  const loadCards = React.useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -75,7 +70,12 @@ const CardSearch: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchParams]);
+
+  // Load cards on component mount and when search params change
+  useEffect(() => {
+    loadCards();
+  }, [loadCards]);
 
   const handleSearch = () => {
     setSearchParams(prev => ({

@@ -15,14 +15,13 @@ import {
   CardContent,
   CardMedia,
   Chip,
-  Alert,
 } from '@mui/material';
 import {
   ArrowBack,
   ArrowForward,
   CloudUpload,
 } from '@mui/icons-material';
-import { CardBase, Edition, ListingCondition, Listing } from '../../types';
+import { CardBase, Edition, ListingCondition } from '../../types';
 
 interface ListingFormProps {
   card: CardBase;

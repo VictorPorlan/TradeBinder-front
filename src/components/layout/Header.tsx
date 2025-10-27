@@ -21,7 +21,7 @@ import { useNotification } from '../../context/NotificationContext';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const { showSuccess } = useNotification();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

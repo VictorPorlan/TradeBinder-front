@@ -16,7 +16,6 @@ import {
   FavoriteBorder,
   LocationOn,
   Euro,
-  Visibility,
 } from '@mui/icons-material';
 import { Listing, ListingCondition } from '../../types';
 import { getImageUrl } from '../../utils/imageUtils';
