@@ -29,9 +29,10 @@ const Register: React.FC = () => {
         showError('Error al cargar las ubicaciones disponibles');
       }
     };
-
+  
     fetchLocations();
-  }, [showError]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleRegister = async (data: Record<string, string>) => {
     try {
