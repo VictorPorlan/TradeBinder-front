@@ -120,10 +120,6 @@ const Home: React.FC = () => {
 
       {/* Features Section */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ mb: 6 }}>
-          ¿Por qué elegir TradeBinder?
-        </Typography>
-        
         <Grid container spacing={4}>
           {features.map((feature, index) => (
             <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
